@@ -510,7 +510,7 @@ public class HxmlTokeniser {
 		// Now return the name.
 		return getString(indexOfStart, getIndex());
 	}
-
+	
 	/**
 	 * Is legal name character. This is only for characters after the initial
 	 * one, because the initial character cannot be a number, whereas this
@@ -521,7 +521,7 @@ public class HxmlTokeniser {
 	 * ('_'|[a-zA-Z0-9])
 	 */
 	private boolean isLegalNameChar(char c) {
-		return (Character.isLetterOrDigit(c) || c == '_' || c == '.' || c == '*');
+		return (Character.isLetterOrDigit(c) || c == '_' || c == '.' || c == '*' || c == '-');
 	}
 
 	/**
