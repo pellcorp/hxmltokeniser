@@ -20,24 +20,18 @@ public class HxmlTokeniserTest {
 	
 	@Test
 	public void testReadAttributes() throws Exception {
-		String template = "<dateOfBirth>\n" + 
-				"	      		<date>\n" + 
-				"		      <year>${year}</year>\n" + 
-				"		      <month>${month}</month>\n" + 
-				"		      <day>${day}</day>\n" + 
-				"	          <invalidValue></invalidValue>\n" + 
-				"		      </date>\n" + 
-				"		    </dateOfBirth>";
-		
-		List<String> startTags = new ArrayList<String>();
+		String template = "<*Date Year=\"${year}\" Month=\"${month}\" Day=\"${day}\" InvalidValue=\"\" />";
 		
 		HxmlTokeniser parse = new HxmlTokeniser(new StringReader(template));
 		while (parse.nextToken()) {
 			if (parse.getTokenType() == HxmlTokeniser.START_TAG || parse.getTokenType() == HxmlTokeniser.EMPTY_TAG) {
-				startTags.add(parse.getTokenName());
+				List<Attribute> attributeList = parse.getAttributes();
+				assertEquals(4, attributeList.size());
+				assertEquals("Year", attributeList.get(0).getName());
+				assertEquals("Month", attributeList.get(1).getName());
+				assertEquals("Day", attributeList.get(2).getName());
+				assertEquals("InvalidValue", attributeList.get(3).getName());
 			}
 		}
-		
-		assertEquals(6, startTags.size());
 	}
 }

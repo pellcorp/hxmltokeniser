@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.pellcorp</groupId>
 	<artifactId>hxmltokeniser</artifactId>
-	<version>0.11</version>
+	<version>0.12</version>
 	<description>XML / HTML Tokeniser</description>
 
 	<dependencies>
@@ -15,12 +15,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<distributionManagement>
-		<repository>
-			<id>deployment</id>
-			<uniqueVersion>true</uniqueVersion>
-			<url>http://${nexus.host.port}/nexus/content/repositories/releases</url>
-		</repository>
-	</distributionManagement>
 </project>
