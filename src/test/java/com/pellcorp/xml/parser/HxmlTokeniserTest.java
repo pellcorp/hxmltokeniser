@@ -7,7 +7,7 @@ import org.junit.Test;
 public class HxmlTokeniserTest {
 	@Test
 	public void testReader() throws Exception {
-		String template = "<*Date type=\"xxxx\"><year>*</year><month>*</month><day>*</day></*Date>";
+		String template = "<*Date *type*=\"xxxx\"><year>*</year><month>*</month><day>*</day></*Date>";
 
 		HxmlTokeniser parse = new HxmlTokeniser(new StringReader(template));
 		
