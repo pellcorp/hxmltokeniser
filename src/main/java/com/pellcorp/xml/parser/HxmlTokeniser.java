@@ -3,10 +3,9 @@ package com.pellcorp.xml.parser;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.Reader;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
  * A StringTokenizer like, XML/HTML parser.
@@ -108,11 +107,6 @@ public class HxmlTokeniser {
 	public static final int ENTITY = 4;
 
 	/**
-	 * Specific to my purpose, is a special new token $function(...)
-	 */
-	public static final int FUNCTION = 5;
-
-	/**
 	 * XML CDATA (Character Data)
 	 */
 	public static final int CDATA = 6;
@@ -189,26 +183,11 @@ public class HxmlTokeniser {
 
 	/**
 	 * Will return attributes if getTokenType()==START_TAG or EMPTY_TAG,
-	 * otherwise return null. Even if START_TAG or EMPTY_TAG, the attribute may
-	 * not be found, in which case this method will return null anyway.
-	 */
-	public String getAttribute(String name) {
-		if (htAttributes != null && tokenType == START_TAG
-				|| tokenType == EMPTY_TAG) {
-			return (String) htAttributes.get(name);
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * Will return attributes if getTokenType()==START_TAG or EMPTY_TAG,
 	 * otherwise return null. The Enumeration may be empty.
 	 */
-	public Collection<String> getAttributes() {
-		if (htAttributes != null && tokenType == START_TAG
-				|| tokenType == EMPTY_TAG) {
-			return htAttributes.keySet();
+	public List<Attribute> getAttributes() {
+		if (tokenType == START_TAG || tokenType == EMPTY_TAG) {
+			return Collections.unmodifiableList(attributeList);
 		} else {
 			return Collections.EMPTY_LIST;
 		}
@@ -510,7 +489,7 @@ public class HxmlTokeniser {
 		// Now return the name.
 		return getString(indexOfStart, getIndex());
 	}
-
+	
 	/**
 	 * Is legal name character. This is only for characters after the initial
 	 * one, because the initial character cannot be a number, whereas this
@@ -521,7 +500,7 @@ public class HxmlTokeniser {
 	 * ('_'|[a-zA-Z0-9])
 	 */
 	private boolean isLegalNameChar(char c) {
-		return (Character.isLetterOrDigit(c) || c == '_' || c == '.' || c == '*');
+		return (Character.isLetterOrDigit(c) || c == '_' || c == '.' || c == '*' || c == '-');
 	}
 
 	/**
@@ -695,7 +674,7 @@ public class HxmlTokeniser {
 		}
 
 		String value = getString(indexOfStart, getIndex());
-		htAttributes.put(name, value);
+		attributeList.add(new Attribute(name, value));
 	}
 
 	/**
@@ -782,9 +761,7 @@ public class HxmlTokeniser {
 	private void reset() {
 		dataBuffer.setLength(0);
 		endOfTextIndex = -1;
-		if (htAttributes != null) {
-			htAttributes.clear();
-		}
+		attributeList.clear();
 		tokenType = -1;
 		tokenName = null;
 	}
@@ -843,7 +820,7 @@ public class HxmlTokeniser {
 	 * Stores any attributes for the last element encountered with nextToken, as
 	 * long as the type is START_TAG or EMPTY_TAG.
 	 */
-	private final Map<String, String> htAttributes = new HashMap<String, String>();
+	private final List<Attribute> attributeList = new ArrayList<Attribute>();
 
 	/**
 	 * Stores the reader we want to read from.
@@ -861,3 +838,4 @@ public class HxmlTokeniser {
 	 */
 	private int endOfTextIndex = -1;
 }
+
