@@ -1,3 +1,21 @@
+/*      
+    Copyright (C) 2001-2012 by Jason Pell
+
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 2
+    of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
 package com.pellcorp.xml.parser;
 
 import java.io.IOException;
@@ -18,10 +36,8 @@ import java.util.List;
  * java.util.StringTokenizer.
  * </P>
  * 
- * <BR>
- * 
  * <PRE>
- * <b>Note:</b> Tag, Entity, ProcessingInstruction and Function names must be of the following form:
+ * <b>Note:</b> Tag, Entity, ProcessingInstruction must be of the following form:
  * 		First char:	('_'|':'|[a-zA-Z])
  * 		The rest:	('_'|'.'|[a-zA-Z0-9])
  * </PRE>
@@ -46,29 +62,9 @@ import java.util.List;
  * If you define tags for the parser to look for, it will not find any &entity;
  * or $function(...) tags inside the tags. The same goes if you specify that the
  * parser should look for Program Instructions or CDATA sections. Nothing will
- * be be returned from inside the instructions. <BR>
- * <BR>
- * Copyright (C)2001 Jason Pell. <BR>
- * 
- * <PRE>
- * 	This program is free software; you can redistribute it and/or
- * 	modify it under the terms of the GNU General Public License
- * 	as published by the Free Software Foundation; either version 2
- * 	of the License, or (at your option) any later version.
- * 	<BR>
- * 	This program is distributed in the hope that it will be useful,
- * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
- * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * 	GNU General Public License for more details.
- * 	<BR>
- * 	You should have received a copy of the GNU General Public License
- * 	along with this program; if not, write to the Free Software
- * 	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 	<BR>
- * 	Email: 	jasonpell@hotmail.com
- * 	Url:	http://www.geocities.com/SiliconValley/Haven/9778
- * </PRE>
- * 
+ * be be returned from inside the instructions.</p>
+ *
+ * @version 0.12 Mavenised and removal of function support
  * @version 0.11 Updated parseFunction to include ( and ) even if function name
  *          is valid. Also added methods to set ignoreComments, ignoreCDAta,
  *          ignorePI. Added a new constructor to set these variables as well.
